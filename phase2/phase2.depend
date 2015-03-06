@@ -30,3 +30,34 @@
 	<string.h>
 	<stdio.h>
 
+1425658433 source:/home/gehernandez1/Desktop/phase2Repo/main.c
+	<stdio.h>
+	<stdlib.h>
+	"helperFunctions.h"
+	"nodes.h"
+	"opCodeHash.h"
+	"symCodeHash.h"
+
+1425658433 /home/gehernandez1/Desktop/phase2Repo/helperFunctions.h
+	<stdio.h>
+	<string.h>
+	<ctype.h>
+	"nodes.h"
+
+1425658433 /home/gehernandez1/Desktop/phase2Repo/nodes.h
+	<stdio.h>
+	<string.h>
+	"definitions.h"
+	"helperFunctions.h"
+
+1425658432 /home/gehernandez1/Desktop/phase2Repo/definitions.h
+
+1425658433 /home/gehernandez1/Desktop/phase2Repo/opCodeHash.h
+	"nodes.h"
+	<stdio.h>
+
+1425658433 /home/gehernandez1/Desktop/phase2Repo/symCodeHash.h
+	"nodes.h"
+	<string.h>
+	<stdio.h>
+
