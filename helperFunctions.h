@@ -27,9 +27,10 @@ int strToInt(char *strValue , int pos);
 // returns a struct containing the tokenized line
 struct tLine parseLine(char *line);
 
-//function gets a line from file or screen input
-char* getLine(FILE*);
+//converts a line form lower case to upper case ;
+void lineToUpper(char* line);
 
+//inserts a header on the intermediate file
 void interFileHeader(FILE* fp,const char* name,const int start);
 
 
@@ -135,6 +136,24 @@ int strToInt(char *strValue , int pos)//<----- You gotta fix this!!!
 
 }
 
+//converts a line form lower case to upper case ;
+void lineToUpper(char* line)
+{
+    char tmp ;
+    int i = 0 ;
+
+    while(line[i])
+    {
+        tmp = toupper(line[i]);
+        line[i] = tmp ;
+        i++ ;
+
+    }
+
+
+
+}
+
 void interFileHeader(FILE* fp,const char* name, const int start)
 {
     fprintf(fp,"Program Name: %s\t\t Starting Address: %x\n",name,start);
@@ -145,15 +164,5 @@ void interFileHeader(FILE* fp,const char* name, const int start)
 
 }
 
-//function gets a line from file or screen input
-char* getLine(FILE *fp )
-{
-    char * line = NULL;
-    size_t len = 0;
-
-    getline(&line, &len, fp);
-
-    return line ;
-}
 
 #endif

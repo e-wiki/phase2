@@ -7,7 +7,6 @@
 
 int main()
 {
-    char* tmp ;
 
     FILE* inFile; //assembly source file
     FILE* labels ; //stores the labels and addresses
@@ -46,11 +45,13 @@ int main()
 
     }
 
-    insertSymNode("J",0);
+
     //start loop that goes to every line of file ending at end of file
     while(!feof(inFile))
     {
         getline(&line, &len, inFile);
+
+        lineToUpper(line);
 
         //if line is not empyt and is not a comment then process line
         if(line[0] != '\n' && line[0] != '.')
@@ -81,13 +82,13 @@ int main()
             }
             else
             {
-
                 if(searchOp(theLine.tokens[0]))
                     insertSymNode(theLine.tokens[0],locctr);
                 else
                 {
                     //NOTE TO SELF, FIX ISSUE WITH CONVERTING TO UPPERCASE,
                     //FIX OPNODE HASHING FUNCTION
+
 
                 }
 

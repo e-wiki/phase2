@@ -59,9 +59,9 @@ int hashingFunc(const char *key)
 {
 
     //fixs this for negative values
-    //return (key[0]-'0') % MAX_HASHTBL_LENGTH ;
+    return (key[0]-'0') % MAX_HASHTBL_LENGTH ;
     //return (i[0] + 27 i[1] + 729 * i[2]) % MAX_HASHTBL_LENGTH ;
-    return 10 ;
+
 }
 
 
@@ -179,7 +179,9 @@ void printToScreen()
 //returns 1 if found, if not found returns 0
 symCode searchOp(const char* item)
 {
+    int i = 0 ;
     int key = hashingFunc(item);
+
     opNode* current = opHashTbl.opCode[key].head ;
 
     while(current->operatorCode != item && current != opHashTbl.opCode[key].last)
@@ -187,15 +189,21 @@ symCode searchOp(const char* item)
         current = current->next ;
     }
 
+    printf("%s\n",current->operatorCode);
+    printf("%s\n",item);
 
-    if(current->operatorCode == item)
+    if((i=strcmp(current->operatorCode,item)) == 0)
     {
-        printf("it works");
+        //printf("This is an opcode: %s\n",item);
+        //printf("%d\n",i);
         return FOUND ;
 
     }
     else
+    {
+       //printf("%d\n",i);
         return NOT_FOUND ;
+    }
 }
 
 
