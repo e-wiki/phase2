@@ -1,0 +1,4 @@
+# ignore anything that ends with a tilde ~
+*~
+
+# remove anything 
