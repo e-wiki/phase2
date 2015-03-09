@@ -1,4 +1,8 @@
 # ignore anything that ends with a tilde ~
 *~
 
-# remove anything 
+# remove documentation directory
+documentation/
+
+# remove object files and source files
+phase2/
