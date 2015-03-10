@@ -25,7 +25,7 @@ int main()
 
     initSymHashTbl();//initializes symbols table
     initOpHashTbl();//initializes opcode table
-    {
+    printToScreen();
 
         //open assembly source file, exit if not able to open
         inFile = fopen("source.asm", "r");
@@ -43,7 +43,7 @@ int main()
             exit(EXIT_FAILURE);
 
 
-    }
+
 
 
     //start loop that goes to every line of file ending at end of file
@@ -72,7 +72,7 @@ int main()
                 interFileHeader(interFile,theLine.tokens[0],startAddrs);
 
                 //add line to intermediate file
-                fprintf(interFile,"%d\t|",locctr);
+                fprintf(interFile,"\t|");//,locctr);
                 for(counter = 0 ; counter < theLine.count ; counter++)
                     fprintf(interFile,"%s\t|",theLine.tokens[counter]);
 
@@ -80,26 +80,29 @@ int main()
 
 
             }
+            //I AM WORKING ON THIS SECTION RIGHT HERE
             else
             {
-                if(searchOp(theLine.tokens[0]))
-                    insertSymNode(theLine.tokens[0],locctr);
-                else
-                {
-                    //NOTE TO SELF, FIX ISSUE WITH CONVERTING TO UPPERCASE,
-                    //FIX OPNODE HASHING FUNCTION
 
+                    if(searchOp(theLine.tokens[0]))
+                       printf("not found, therefore is a symbol\n");//insertSymNode(theLine.tokens[0],locctr);
+                    else
+                    {
+                        //NOTE TO SELF, FIX ISSUE WITH CONVERTING TO UPPERCASE,
+                        //FIX OPNODE HASHING FUNCTION
+                        printf("found, therefore is an opcode\n");
 
-                }
+                    }
 
                 //add line to intermediate file
-                fprintf(interFile,"%d\t|",locctr);
+                fprintf(interFile,"%x\t|",locctr);
                 for(counter = 0 ; counter < theLine.count ; counter++)
                     fprintf(interFile,"%s\t|",theLine.tokens[counter]);
 
                 fprintf(interFile,"\n");
                 locctr += 3 ;
             }
+            /********************************************************/
         }
 
 

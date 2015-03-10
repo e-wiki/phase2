@@ -57,9 +57,16 @@ struct opHash opHashTbl ;
 //hashing function
 int hashingFunc(const char *key)
 {
+    int k = 0 ;
+    int i = 0 ;
 
+    for(k = 0 ; k < strlen(key); k++)
+    {
+        i += key[k]-'0' ;
+
+    }
     //fixs this for negative values
-    return (key[0]-'0') % MAX_HASHTBL_LENGTH ;
+    return  (i% MAX_HASHTBL_LENGTH) ;
     //return (i[0] + 27 i[1] + 729 * i[2]) % MAX_HASHTBL_LENGTH ;
 
 }
@@ -179,31 +186,65 @@ void printToScreen()
 //returns 1 if found, if not found returns 0
 symCode searchOp(const char* item)
 {
-    int i = 0 ;
+    /*
+        int i = 0 ;
+        int key = hashingFunc(item);
+        for(i = 0 ; i < strlen(item); i++)
+        printf("The first field is: %c\n",item[i]);
+
+        opNode* current = opHashTbl.opCode[key].head ;
+
+       while(current->operatorCode != item && current != opHashTbl.opCode[key].last)
+        {
+            current = current->next ;
+        }
+
+    for(i = 0 ; i < strlen(current->operatorCode); i++)
+        printf("Ater the search current is: %c\n",current->operatorCode[i]);
+
+        if((i=strcmp(current->operatorCode,item)) == 0)
+        {
+            printf("If they are equal, then print the item: %s\n",item);
+            printf("And this is the result of strcmp(): %d\n",i);
+            printf("it is found\n************************************\n");
+            return FOUND ;
+
+        }
+        else
+        {
+            printf("And this is the result of strcmp(): %d\n",i);
+            printf("It is not found\n*****************************************\n");
+            return NOT_FOUND ;
+        }*/
+
     int key = hashingFunc(item);
+    int i =0 ;
 
     opNode* current = opHashTbl.opCode[key].head ;
+   /* for(i = 0 ; i < strlen(item); i++)
+        printf("The first field is: %c\n",item[i]);
 
-    while(current->operatorCode != item && current != opHashTbl.opCode[key].last)
+        printf("1. it did finish the for loop\n");*/
+
+    while(current != NULL)
     {
+
+        if(strcmp(current->operatorCode,item) == 0 )
+        {
+
+            return FOUND ; //returns zero
+        }
+
+
         current = current->next ;
-    }
+       // for(i = 0 ; i < strlen(current->operatorCode); i++)
+         //   printf("The current is: %c\n",current->operatorCode[i]);
 
-    printf("%s\n",current->operatorCode);
-    printf("%s\n",item);
-
-    if((i=strcmp(current->operatorCode,item)) == 0)
-    {
-        //printf("This is an opcode: %s\n",item);
-        //printf("%d\n",i);
-        return FOUND ;
 
     }
-    else
-    {
-       //printf("%d\n",i);
-        return NOT_FOUND ;
-    }
+
+
+    return NOT_FOUND ;//returns one
 }
 
 
