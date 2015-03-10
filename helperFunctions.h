@@ -192,7 +192,7 @@ void lineToUpper(char* line)
 void interFileHeader(FILE* fp,const char* name, const int start)
 {
     fprintf(fp,"Program Name: %s\t\t Starting Address: %x\n",name,start);
-    fprintf(fp,"LOCCTR\tLABEL\tOPCODE\tOPERAND\tCOMMENTS\n");
+    fprintf(fp,"LOCCTR\t|LABEL\t|OPCODE\t|OPERAND|MNEMONIC VALUE\t|ERROR CODE\n");
     fprintf(fp,"********************************************");
     fprintf(fp,"*****************************\n");
 

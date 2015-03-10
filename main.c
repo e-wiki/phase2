@@ -73,7 +73,7 @@ int main()
 
                 //add line to intermediate file
                 fprintf(interFile,"\t|");//,locctr);
-                for(counter = 0 ; counter < theLine.count ; counter++)
+                for(counter = 0 ; counter < 3 ; counter++)
                     fprintf(interFile,"%s\t|",theLine.tokens[counter]);
 
                 fprintf(interFile,"\n");
@@ -87,6 +87,10 @@ int main()
                 if(searchOp(theLine.tokens[0]))//if is a symbol
                 {
                     insertSymNode(theLine.tokens[0],locctr);//insert symbol in table
+
+                    fprintf(interFile,"%d\t|",locctr);
+                    for(counter = 0 ; counter < 3 ; counter++)
+                    fprintf(interFile,"%s\t|",theLine.tokens[counter]);
 
                     if(!searchOp(theLine.tokens[1]))//if next item in token list is an opcode
                     {
@@ -122,10 +126,14 @@ int main()
 
                     }
                 }
-                else if(!searchOp(theLine.tokens[0]))
+                else if(!searchOp(theLine.tokens[0]))//if is opcode
                 {
                     //NOTE TO SELF, FIX ISSUE WITH CONVERTING TO UPPERCASE,
                     //FIX OPNODE HASHING FUNCTION
+
+                    fprintf(interFile,"%d\t|\t|",locctr);
+                    for(counter = 0 ; counter < 2 ; counter++)
+                    fprintf(interFile,"%s\t|",theLine.tokens[counter]);
 
                     if(strcmp(theLine.tokens[0],"WORD") == 0)
                     {
@@ -157,11 +165,11 @@ int main()
                     //for any illegal operation
                 }
 
-                //add line to intermediate file
-                fprintf(interFile,"%d\t|",locctr);
+                /*//add line to intermediate file
+                fprintf(interFile,"\t|");//%d\t|",locctr);
                 for(counter = 0 ; counter < theLine.count ; counter++)
                     fprintf(interFile,"%s\t|",theLine.tokens[counter]);
-
+*/
                 fprintf(interFile,"\n");
 
             }

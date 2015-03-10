@@ -26,7 +26,7 @@
 *********************************/
 
 
-typedef enum {FOUND,NOT_FOUND,ILLEGAL_LABEL} symCode ;
+typedef enum {FOUND,NOT_FOUND,ILLEGAL_LABEL,ILLEGAL_OPERATION} symCode ;
 
 
 /************************************************************
