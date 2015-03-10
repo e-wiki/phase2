@@ -25,22 +25,22 @@ int main()
 
     initSymHashTbl();//initializes symbols table
     initOpHashTbl();//initializes opcode table
-    printToScreen();
+    insertSymNode("CLOOP",04);
 
-        //open assembly source file, exit if not able to open
-        inFile = fopen("source.asm", "r");
-        if (inFile == NULL)
-            exit(EXIT_FAILURE);
+    //open assembly source file, exit if not able to open
+    inFile = fopen("source.asm", "r");
+    if (inFile == NULL)
+        exit(EXIT_FAILURE);
 
-        //open labels file for writting, exit if not able to open
-        labels = fopen("labels.txt","w");
-        if(labels == NULL)
-            exit(EXIT_FAILURE);
+    //open labels file for writting, exit if not able to open
+    labels = fopen("labels.txt","w");
+    if(labels == NULL)
+        exit(EXIT_FAILURE);
 
-        //open intermidate file for writting, exit if not able to open
-        interFile = fopen("intermediateFile.txt","w");
-        if(interFile == NULL)
-            exit(EXIT_FAILURE);
+    //open intermidate file for writting, exit if not able to open
+    interFile = fopen("intermediateFile.txt","w");
+    if(interFile == NULL)
+        exit(EXIT_FAILURE);
 
 
 
@@ -84,23 +84,86 @@ int main()
             else
             {
 
-                    if(searchOp(theLine.tokens[0]))
-                       printf("not found, therefore is a symbol\n");//insertSymNode(theLine.tokens[0],locctr);
-                    else
+                if(searchOp(theLine.tokens[0]))//if is a symbol
+                {
+                    insertSymNode(theLine.tokens[0],locctr);//insert symbol in table
+
+                    if(!searchOp(theLine.tokens[1]))//if next item in token list is an opcode
                     {
-                        //NOTE TO SELF, FIX ISSUE WITH CONVERTING TO UPPERCASE,
-                        //FIX OPNODE HASHING FUNCTION
-                        printf("found, therefore is an opcode\n");
+
+                        if(strcmp(theLine.tokens[1],"WORD") == 0) //if it equals word
+                        {
+                            locctr += 3 ;
+
+                        }
+                        else if(strcmp(theLine.tokens[1],"RESW") ==0)//if equals resw
+                        {
+
+                            locctr += 3 * strToDec(theLine.tokens[2],strlen(theLine.tokens[2]-1)) ;
+
+                        }
+                        else if(strcmp(theLine.tokens[1],"RESB")==0)//if equals resb
+                        {
+                            locctr += strToDec(theLine.tokens[2],strlen(theLine.tokens[2])-1) ;
+                        }
+                        else if(strcmp(theLine.tokens[1],"BYTE")==0)//if equals byte
+                        {
+                            locctr += 0 ;
+                        }
+                        else
+                        {
+                            locctr += 3 ;
+                        }
 
                     }
+                    else
+                    {
+                        //set error code ;
+
+                    }
+                }
+                else if(!searchOp(theLine.tokens[0]))
+                {
+                    //NOTE TO SELF, FIX ISSUE WITH CONVERTING TO UPPERCASE,
+                    //FIX OPNODE HASHING FUNCTION
+
+                    if(strcmp(theLine.tokens[0],"WORD") == 0)
+                    {
+                        locctr += 3 ;
+
+                    }
+                    else if(strcmp(theLine.tokens[0],"RESW") ==0)
+                    {
+                        locctr += 3 * strToInt(theLine.tokens[1],strlen(theLine.tokens[1]-1)) ;
+
+                    }
+                    else if(strcmp(theLine.tokens[0],"RESB")==0)
+                    {
+                        locctr += strToInt(theLine.tokens[1],strlen(theLine.tokens[1])-1) ;
+                    }
+                    else if(strcmp(theLine.tokens[0],"BYTE")==0)
+                    {
+                        locctr += 0 ;
+                    }
+                    else
+                    {
+                        locctr += 3 ;
+                    }
+
+
+                }
+                else
+                {
+                    //for any illegal operation
+                }
 
                 //add line to intermediate file
-                fprintf(interFile,"%x\t|",locctr);
+                fprintf(interFile,"%d\t|",locctr);
                 for(counter = 0 ; counter < theLine.count ; counter++)
                     fprintf(interFile,"%s\t|",theLine.tokens[counter]);
 
                 fprintf(interFile,"\n");
-                locctr += 3 ;
+
             }
             /********************************************************/
         }

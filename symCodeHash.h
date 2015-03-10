@@ -101,9 +101,9 @@ void insertSymNode(const char* label, int addr)
 {
 
     int key = symHashingFunc(label);
-    symCode errorCode = searchSym(label);
-    if(errorCode== 1)
-        errorCode = checkLabel(label);
+    symCode errorCode = checkLabel(label);
+    if(errorCode != 2)
+        errorCode = searchSym(label);
 
     if(symHashTbl.size <= MAX_LABELS)
     {
@@ -200,14 +200,14 @@ symCode searchSym(const char* itemLbl)
         if(current->label == itemLbl)
         {
             //current->errorCode = FOUND ;
-            return FOUND ;
+            return FOUND ;//returns zero
         }
 
         current = current->next ;
     }
 
 
-    return NOT_FOUND ;
+    return NOT_FOUND ;//returns one
 }
 
 

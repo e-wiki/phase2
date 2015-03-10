@@ -186,45 +186,11 @@ void printToScreen()
 //returns 1 if found, if not found returns 0
 symCode searchOp(const char* item)
 {
-    /*
-        int i = 0 ;
-        int key = hashingFunc(item);
-        for(i = 0 ; i < strlen(item); i++)
-        printf("The first field is: %c\n",item[i]);
 
-        opNode* current = opHashTbl.opCode[key].head ;
-
-       while(current->operatorCode != item && current != opHashTbl.opCode[key].last)
-        {
-            current = current->next ;
-        }
-
-    for(i = 0 ; i < strlen(current->operatorCode); i++)
-        printf("Ater the search current is: %c\n",current->operatorCode[i]);
-
-        if((i=strcmp(current->operatorCode,item)) == 0)
-        {
-            printf("If they are equal, then print the item: %s\n",item);
-            printf("And this is the result of strcmp(): %d\n",i);
-            printf("it is found\n************************************\n");
-            return FOUND ;
-
-        }
-        else
-        {
-            printf("And this is the result of strcmp(): %d\n",i);
-            printf("It is not found\n*****************************************\n");
-            return NOT_FOUND ;
-        }*/
 
     int key = hashingFunc(item);
-    int i =0 ;
 
     opNode* current = opHashTbl.opCode[key].head ;
-   /* for(i = 0 ; i < strlen(item); i++)
-        printf("The first field is: %c\n",item[i]);
-
-        printf("1. it did finish the for loop\n");*/
 
     while(current != NULL)
     {
@@ -237,9 +203,6 @@ symCode searchOp(const char* item)
 
 
         current = current->next ;
-       // for(i = 0 ; i < strlen(current->operatorCode); i++)
-         //   printf("The current is: %c\n",current->operatorCode[i]);
-
 
     }
 

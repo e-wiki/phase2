@@ -23,6 +23,9 @@
 //translates a string of characters to its decimal value
 int strToInt(char *strValue , int pos);
 
+//converts a string to its decimal value
+int strToDec(char *strValue, int pos);
+
 //takes a string line of characters and tokenizes the line
 // returns a struct containing the tokenized line
 struct tLine parseLine(char *line);
@@ -132,6 +135,38 @@ int strToInt(char *strValue , int pos)//<----- You gotta fix this!!!
         pos--;
         return value += strToInt(strValue,pos);
     }
+
+
+}
+
+
+//converts a string to its decimal value
+int strToDec(char *strValue, int pos)
+{
+    int value = 1 ;
+    int size = (strlen(strValue) < 9)?(strlen(strValue)):(8);
+    int decimalValue[size] ;
+    int i ;
+
+    decimalValue[pos] = strValue[pos] - '0' ;
+
+    for(i=pos ; i < size -1; i++)
+    {
+        value *= 10 ;
+
+    }
+
+    if( pos == 0)
+    {
+        return value * decimalValue[pos] ;
+    }
+    else
+    {
+        value *= decimalValue[pos] ;
+        pos--;
+        return value += strToDec(strValue,pos);
+    }
+
 
 
 }
