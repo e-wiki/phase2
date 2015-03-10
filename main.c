@@ -15,17 +15,19 @@ int main()
     int startAddrs = 0 ;//starting address of program
     int locctr = 0 ;//address of current instruction
 
-    char* line = NULL;
-    size_t len = 0;
+    char* line = NULL;// stores the line obtained from file
+    size_t len = 0; //stores the length of the file
 
-    int counter = 0 ;
+    //counters
+    int counter = 0 ; //counts the num of tokens in tokenized line
+    int lineCount = 0 ;
 
     tokenLine theLine ; // holds tokens from a parsed line
 
-
+    //initializers
     initSymHashTbl();//initializes symbols table
     initOpHashTbl();//initializes opcode table
-    insertSymNode("CLOOP",04);
+
 
     //open assembly source file, exit if not able to open
     inFile = fopen("source.asm", "r");
@@ -51,6 +53,7 @@ int main()
     {
         getline(&line, &len, inFile);
 
+        //changes al characters in line to upper case
         lineToUpper(line);
 
         //if line is not empyt and is not a comment then process line
@@ -58,9 +61,10 @@ int main()
         {
             //tokenize line and store in struct
             theLine = parseLine(line);//the tokenized line
+            lineCount++ ;
 
-            //if opcode is start directive then
-            if(strcmp(theLine.tokens[1],"START")== 0)
+            //if opcode is start directive at line one then
+            if(strcmp(theLine.tokens[1],"START")== 0 && lineCount == 1)
             {
                 //set starting address to operand
                 startAddrs = strToInt(theLine.tokens[2],strlen(theLine.tokens[2])-1);
@@ -90,7 +94,7 @@ int main()
 
                     fprintf(interFile,"%d\t|",locctr);
                     for(counter = 0 ; counter < 3 ; counter++)
-                    fprintf(interFile,"%s\t|",theLine.tokens[counter]);
+                        fprintf(interFile,"%s\t|",theLine.tokens[counter]);
 
                     if(!searchOp(theLine.tokens[1]))//if next item in token list is an opcode
                     {
@@ -114,10 +118,12 @@ int main()
                         {
                             locctr += 0 ;
                         }
-                        else
+                        else //if just regular operator
                         {
                             locctr += 3 ;
                         }
+                        //prints the mnemonic value of the opcode
+                        fprintf(interFile,"%x\t|",mnValue(theLine.tokens[1]));
 
                     }
                     else
@@ -133,7 +139,7 @@ int main()
 
                     fprintf(interFile,"%d\t|\t|",locctr);
                     for(counter = 0 ; counter < 2 ; counter++)
-                    fprintf(interFile,"%s\t|",theLine.tokens[counter]);
+                        fprintf(interFile,"%s\t|",theLine.tokens[counter]);
 
                     if(strcmp(theLine.tokens[0],"WORD") == 0)
                     {
@@ -153,11 +159,13 @@ int main()
                     {
                         locctr += 0 ;
                     }
-                    else
+                    else //if just regular operator
                     {
                         locctr += 3 ;
                     }
 
+                    //prints the mnemonic value of the opcode
+                    fprintf(interFile,"%x\t|",mnValue(theLine.tokens[0]));
 
                 }
                 else
@@ -165,11 +173,8 @@ int main()
                     //for any illegal operation
                 }
 
-                /*//add line to intermediate file
-                fprintf(interFile,"\t|");//%d\t|",locctr);
-                for(counter = 0 ; counter < theLine.count ; counter++)
-                    fprintf(interFile,"%s\t|",theLine.tokens[counter]);
-*/
+
+
                 fprintf(interFile,"\n");
 
             }

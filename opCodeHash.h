@@ -35,6 +35,9 @@ int hashingFunc(const char *key);
 //takes a pointer to the hashTable
 void insertNode(char *mnemonic, char* value);
 
+//returns the mnemonic value of opcode
+int mnValue(char *mnemonic);
+
 //prints hash table to screen
 void printToScreen();
 
@@ -201,7 +204,6 @@ symCode searchOp(const char* item)
             return FOUND ; //returns zero
         }
 
-
         current = current->next ;
 
     }
@@ -210,6 +212,32 @@ symCode searchOp(const char* item)
     return NOT_FOUND ;//returns one
 }
 
+//returns the mnemonic value of opcode
+int mnValue(char *mnemonic)
+{
+
+    int key = hashingFunc(mnemonic);
+
+    opNode* current = opHashTbl.opCode[key].head ;
+
+    while(current != NULL)
+    {
+
+        if(strcmp(current->operatorCode,mnemonic) == 0 )
+        {
+
+            return current->mnValue ; //returns mnemonic value
+        }
+
+
+        current = current->next ;
+
+    }
+
+
+    return 0 ;
+
+}
 
 #endif // OPCODEHASH_H
 

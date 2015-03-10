@@ -52,7 +52,7 @@ typedef struct opContainer
     opNode* head ;
     opNode* last ;
 
-}opLinkedList;
+} opLinkedList;
 
 /************** Symbol tabel structs ********************/
 
@@ -71,7 +71,7 @@ typedef struct symContainer
     symNode* head ;
     symNode* last ;
 
-}symLinkedList ;
+} symLinkedList ;
 
 /*********** Line tokenize structs ***********************/
 

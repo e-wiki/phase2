@@ -101,6 +101,7 @@ void insertSymNode(const char* label, int addr)
 {
 
     int key = symHashingFunc(label);
+    //work on this, may be make errorCode an array
     symCode errorCode = checkLabel(label);
     if(errorCode != 2)
         errorCode = searchSym(label);
