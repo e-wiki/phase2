@@ -36,6 +36,9 @@ void lineToUpper(char* line);
 //inserts a header on the intermediate file
 void interFileHeader(FILE* fp,const char* name,const int start);
 
+//translates operand into number of bytes required
+int operandToBytes(const char* operand);
+
 
 /*****************Function definitions ***********************/
 
@@ -199,5 +202,42 @@ void interFileHeader(FILE* fp,const char* name, const int start)
 
 }
 
+
+//translates operand into number of bytes required
+int operandToBytes(const char* operand)
+{
+    char* newString = malloc(sizeof(operand));
+    int i = 2 ;
+
+    switch(tolower(operand[0]))
+    {
+    case 'x':
+        while(operand[i] != NULL)
+        {
+            if(operand[i] != '\'')
+            {
+                newString[i-2] = operand[i];
+            }
+            i++ ;
+        }
+        return strToInt(newString,strlen(newString)-1);
+        break;
+
+    case 'c':
+        return strlen(operand)-3 ;
+        break;
+
+    default:
+        return 0 ;
+        break ;
+
+
+
+    }
+
+
+
+
+}
 
 #endif

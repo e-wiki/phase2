@@ -4,5 +4,11 @@
 # remove documentation directory
 documentation/
 
-# remove object files and source files
+# remove object files and block code- layout files
 phase2/
+
+#remove text files
+*.txt
+
+# remove assembly files
+*.asm

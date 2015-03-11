@@ -5,7 +5,7 @@
 #include "opCodeHash.h"
 #include "symCodeHash.h"
 
-int main()
+int main(int argc, char* argv[])
 {
 
     FILE* inFile; //assembly source file
@@ -101,22 +101,23 @@ int main()
 
                         if(strcmp(theLine.tokens[1],"WORD") == 0) //if it equals word
                         {
-                            locctr += 3 ;
+                            locctr += 3 ; //increment counter by 3
 
                         }
                         else if(strcmp(theLine.tokens[1],"RESW") ==0)//if equals resw
                         {
-
+                            //increment counter by 3 times the number of the operand
                             locctr += 3 * strToDec(theLine.tokens[2],strlen(theLine.tokens[2]-1)) ;
 
                         }
                         else if(strcmp(theLine.tokens[1],"RESB")==0)//if equals resb
                         {
+                            //increment counter by adding the operand
                             locctr += strToDec(theLine.tokens[2],strlen(theLine.tokens[2])-1) ;
                         }
                         else if(strcmp(theLine.tokens[1],"BYTE")==0)//if equals byte
                         {
-                            locctr += 0 ;
+                           locctr +=  operandToBytes(theLine.tokens[2]);
                         }
                         else //if just regular operator
                         {
@@ -157,7 +158,7 @@ int main()
                     }
                     else if(strcmp(theLine.tokens[0],"BYTE")==0)
                     {
-                        locctr += 0 ;
+                        locctr += operandToBytes(theLine.tokens[1]);
                     }
                     else //if just regular operator
                     {

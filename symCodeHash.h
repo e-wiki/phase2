@@ -102,16 +102,16 @@ void insertSymNode(const char* label, int addr)
 
     int key = symHashingFunc(label);
     //work on this, may be make errorCode an array
-    symCode errorCode = checkLabel(label);
-    if(errorCode != 2)
-        errorCode = searchSym(label);
+    //symCode errorCode = checkLabel(label);
+    //if(errorCode != 2)
+    //    errorCode = searchSym(label);
 
     if(symHashTbl.size <= MAX_LABELS)
     {
         symNode* newItem  = malloc(sizeof(symNode));
         newItem->label = label ;
-        newItem->address = addr;//<---- improve this!!!!
-        newItem->errorCode = errorCode ;
+        newItem->address = addr;
+        //newItem->errorCode = errorCode ;
         newItem->next = NULL ;
 
 
@@ -174,9 +174,10 @@ void printTblToFile(FILE* fp)
     for(i =0 ; i < MAX_SYMTBL_LENGTH ; i++)
     {
         current = symHashTbl.symbols[i].head ;
-        fprintf(fp,"%d.\t************************\n",i);
+
         while(current != NULL)
         {
+            fprintf(fp,"%d.\t************************\n",i);
             fprintf(fp,"\t|%s , %x\n",current->label,current->address);
             fprintf(fp,"\t|Error code: %d\n",current->errorCode);
             fprintf(fp,"\t|------------------\n");
