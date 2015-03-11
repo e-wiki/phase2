@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
 
 
-
+    symCode errorCodes[4] ;
 
 
     //start loop that goes to every line of file ending at end of file
@@ -92,9 +92,15 @@ int main(int argc, char* argv[])
                 {
                     insertSymNode(theLine.tokens[0],locctr);//insert symbol in table
 
-                    fprintf(interFile,"%d\t|",locctr);
+                    //errorCodes[0] = searchSym(theLine.tokens[0]);
+
+                    //printf("%d\n",errorCodes[0]);
+
+                    /**************Print line to file ******************************/
+                    fprintf(interFile,"%x\t|",locctr);
                     for(counter = 0 ; counter < 3 ; counter++)
                         fprintf(interFile,"%s\t|",theLine.tokens[counter]);
+                    /***************************************************************/
 
                     if(!searchOp(theLine.tokens[1]))//if next item in token list is an opcode
                     {
@@ -126,21 +132,25 @@ int main(int argc, char* argv[])
                         //prints the mnemonic value of the opcode
                         fprintf(interFile,"%x\t|",mnValue(theLine.tokens[1]));
 
+
+
                     }
                     else
                     {
                         //set error code ;
 
                     }
+
+                    //prints error code in the line
                 }
                 else if(!searchOp(theLine.tokens[0]))//if is opcode
                 {
-                    //NOTE TO SELF, FIX ISSUE WITH CONVERTING TO UPPERCASE,
-                    //FIX OPNODE HASHING FUNCTION
 
-                    fprintf(interFile,"%d\t|\t|",locctr);
+                    /***************print line to file ******************************/
+                    fprintf(interFile,"%x\t|\t|",locctr);
                     for(counter = 0 ; counter < 2 ; counter++)
                         fprintf(interFile,"%s\t|",theLine.tokens[counter]);
+                    /****************************************************************/
 
                     if(strcmp(theLine.tokens[0],"WORD") == 0)
                     {
@@ -168,13 +178,14 @@ int main(int argc, char* argv[])
                     //prints the mnemonic value of the opcode
                     fprintf(interFile,"%x\t|",mnValue(theLine.tokens[0]));
 
+
                 }
                 else
                 {
                     //for any illegal operation
                 }
 
-
+                //prints error code in the line
 
                 fprintf(interFile,"\n");
 

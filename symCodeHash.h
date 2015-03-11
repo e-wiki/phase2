@@ -102,7 +102,8 @@ void insertSymNode(const char* label, int addr)
 
     int key = symHashingFunc(label);
     //work on this, may be make errorCode an array
-    //symCode errorCode = checkLabel(label);
+    symCode errorCode = checkLabel(label);
+    //printf("%d\n",errorCode);
     //if(errorCode != 2)
     //    errorCode = searchSym(label);
 
@@ -180,7 +181,6 @@ void printTblToFile(FILE* fp)
             fprintf(fp,"%d.\t************************\n",i);
             fprintf(fp,"\t|%s , %x\n",current->label,current->address);
             fprintf(fp,"\t|Error code: %d\n",current->errorCode);
-            fprintf(fp,"\t|------------------\n");
             current = current->next ;
         }
     }
@@ -199,7 +199,7 @@ symCode searchSym(const char* itemLbl)
 
     while(current != NULL)
     {
-        if(current->label == itemLbl)
+        if(strcmp(current->label,itemLbl) == 0)
         {
             //current->errorCode = FOUND ;
             return FOUND ;//returns zero

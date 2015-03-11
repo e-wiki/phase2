@@ -190,7 +190,6 @@ void printToScreen()
 symCode searchOp(const char* item)
 {
 
-
     int key = hashingFunc(item);
 
     opNode* current = opHashTbl.opCode[key].head ;

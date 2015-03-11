@@ -40,6 +40,10 @@ void interFileHeader(FILE* fp,const char* name,const int start);
 int operandToBytes(const char* operand);
 
 
+//checks for errors in program line
+void checkErrors(const char* item,symCode errorCodes);
+
+
 /*****************Function definitions ***********************/
 
 //takes a string line of characters and tokenizes the line
@@ -236,6 +240,13 @@ int operandToBytes(const char* operand)
     }
 
 
+
+
+}
+
+//checks for errors in program line
+void checkErrors(const char* item,symCode errorCodes)
+{
 
 
 }
