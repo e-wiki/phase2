@@ -12,6 +12,10 @@ int main(int argc, char* argv[])
     FILE* labels ; //stores the labels and addresses
     FILE* interFile ; //stores the intermediate data from source file
 
+    /*for codeblocks ignore this part
+    char* fileToOpen = (char*)malloc(sizeof(argv[1]));
+    strcpy(fileToOpen,argv[1]);
+    */
     int startAddrs = 0 ;//starting address of program
     int locctr = 0 ;//address of current instruction
 
@@ -44,7 +48,7 @@ int main(int argc, char* argv[])
     if(interFile == NULL)
         exit(EXIT_FAILURE);
 
-
+    //see if this can help for error codes ****************************8
     symCode errorCodes[4] ;
 
 
