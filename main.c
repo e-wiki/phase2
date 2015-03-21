@@ -55,7 +55,8 @@ int main(int argc, char* argv[])
     //start loop that goes to every line of file ending at end of file
     while(!feof(inFile))
     {
-        getline(&line, &len, inFile);
+        processLine(line,inFile);
+        //getline(&line, &len, inFile);
 
         //changes al characters in line to upper case
         lineToUpper(line);

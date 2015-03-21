@@ -43,6 +43,9 @@ int operandToBytes(const char* operand);
 //checks for errors in program line
 void checkErrors(const char* item,symCode errorCodes);
 
+//process line
+void processLine(char* line,FILE* fp);
+
 
 /*****************Function definitions ***********************/
 
@@ -247,6 +250,16 @@ int operandToBytes(const char* operand)
 //checks for errors in program line
 void checkErrors(const char* item,symCode errorCodes)
 {
+
+
+}
+
+//process line
+void processLine(char* line,FILE* fp)
+{
+    size_t len = 0 ;
+
+    getline(&line,&len,fp);
 
 
 }
