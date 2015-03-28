@@ -3,6 +3,9 @@
 
 //#include <stdio.h>
 
+//defines the max number of characters in a line
+#define MAX_LINE_LENGTH 100
+
 //defines the max number instructions
 #define MAX_NUMBER_OF_INST 25 //TBA!!!!!
 

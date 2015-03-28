@@ -7,20 +7,18 @@
 
 int main(int argc, char* argv[])
 {
+    FILE* ioData[3] ;
 
-    FILE* inFile; //assembly source file
-    FILE* labels ; //stores the labels and addresses
-    FILE* interFile ; //stores the intermediate data from source file
+    initDataIo(argv,ioData);//initialize files
 
-    /*for codeblocks ignore this part
-    char* fileToOpen = (char*)malloc(sizeof(argv[1]));
-    strcpy(fileToOpen,argv[1]);
-    */
+    FILE* inFile = ioData[0] ;//assembly source file
+    FILE* labels  = ioData[1] ;//stores the labels and addresses
+    FILE* interFile = ioData[2]; //stores the intermediate data from source file
+
     int startAddrs = 0 ;//starting address of program
     int locctr = 0 ;//address of current instruction
 
-    char* line = NULL;// stores the line obtained from file
-    size_t len = 0; //stores the length of the file
+    char* line = (char*)malloc(MAX_LINE_LENGTH);// stores the line obtained from file
 
     //counters
     int counter = 0 ; //counts the num of tokens in tokenized line
@@ -33,20 +31,6 @@ int main(int argc, char* argv[])
     initOpHashTbl();//initializes opcode table
 
 
-    //open assembly source file, exit if not able to open
-    inFile = fopen("source.asm", "r");
-    if (inFile == NULL)
-        exit(EXIT_FAILURE);
-
-    //open labels file for writting, exit if not able to open
-    labels = fopen("labels.txt","w");
-    if(labels == NULL)
-        exit(EXIT_FAILURE);
-
-    //open intermidate file for writting, exit if not able to open
-    interFile = fopen("intermediateFile.txt","w");
-    if(interFile == NULL)
-        exit(EXIT_FAILURE);
 
     //see if this can help for error codes ****************************8
     symCode errorCodes[4] ;
@@ -55,9 +39,8 @@ int main(int argc, char* argv[])
     //start loop that goes to every line of file ending at end of file
     while(!feof(inFile))
     {
-        processLine(line,inFile);
-        //getline(&line, &len, inFile);
-
+        //read line form file
+        readLine(line, inFile);
         //changes al characters in line to upper case
         lineToUpper(line);
 

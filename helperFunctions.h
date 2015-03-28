@@ -39,12 +39,14 @@ void interFileHeader(FILE* fp,const char* name,const int start);
 //translates operand into number of bytes required
 int operandToBytes(const char* operand);
 
-
 //checks for errors in program line
 void checkErrors(const char* item,symCode errorCodes);
 
-//process line
-void processLine(char* line,FILE* fp);
+//initialize files
+void initDataIo(char** filenames, FILE** files);
+
+//reads line from specified file
+void readLine(char* line , FILE* fp);
 
 
 /*****************Function definitions ***********************/
@@ -215,19 +217,25 @@ int operandToBytes(const char* operand)
 {
     char* newString = malloc(sizeof(operand));
     int i = 2 ;
+    int size ;
 
     switch(tolower(operand[0]))
     {
     case 'x':
-        while(operand[i] != NULL)
+        size = strlen(operand)-3 ;
+        printf("%d\n",size);
+        if(size <= MAX_HEX_CHARS)
         {
-            if(operand[i] != '\'')
+            while(operand[i] != NULL)
             {
-                newString[i-2] = operand[i];
+                if(operand[i] != '\'')
+                {
+                    newString[i-2] = operand[i];
+                }
+                i++ ;
             }
-            i++ ;
+            return strToInt(newString,strlen(newString)-1);
         }
-        return strToInt(newString,strlen(newString)-1);
         break;
 
     case 'c':
@@ -254,10 +262,32 @@ void checkErrors(const char* item,symCode errorCodes)
 
 }
 
-//process line
-void processLine(char* line,FILE* fp)
+//initialize files
+void initDataIo(char** filenames, FILE** files)
 {
-    size_t len = 0 ;
+    //open assembly source file, exit if not able to open
+    files[0] = fopen("source.asm", "r");
+    if (files[0] == NULL)
+        exit(EXIT_FAILURE);
+
+    //open labels file for writting, exit if not able to open
+    files[1] = fopen("labels.txt","w");
+    if(files[1] == NULL)
+        exit(EXIT_FAILURE);
+
+    //open intermidate file for writting, exit if not able to open
+    files[2] = fopen("intermediateFile.txt","w");
+    if(files[2] == NULL)
+        exit(EXIT_FAILURE);
+
+
+}
+
+//reads line from specified file
+void readLine(char* line , FILE* fp)
+{
+
+    size_t* len = MAX_LINE_LENGTH ;
 
     getline(&line,&len,fp);
 
