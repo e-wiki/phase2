@@ -15,6 +15,10 @@ int main(int argc, char* argv[])
     FILE* labels  = ioData[1] ;//stores the labels and addresses
     FILE* interFile = ioData[2]; //stores the intermediate data from source file
 
+    //initializers
+    initSymHashTbl();//initializes symbols table
+    initOpHashTbl();//initializes opcode table
+
     int startAddrs = 0 ;//starting address of program
     int locctr = 0 ;//address of current instruction
 
@@ -26,14 +30,9 @@ int main(int argc, char* argv[])
 
     tokenLine theLine ; // holds tokens from a parsed line
 
-    //initializers
-    initSymHashTbl();//initializes symbols table
-    initOpHashTbl();//initializes opcode table
-
-
 
     //see if this can help for error codes ****************************8
-    symCode errorCodes[4] ;
+    errorCode errorCodes[4] ;
 
 
     //start loop that goes to every line of file ending at end of file

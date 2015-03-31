@@ -42,6 +42,9 @@
 //defines the hexadecimal base value
 #define HEX_BASE 16
 
+//defines the max number for characters for a token
+#define MAX_TOKEN_LEN 50
+
 //gives you the size of an array
 #define ARRSIZE(x) (sizeof(x)/sizeof(x[0]))-1
 

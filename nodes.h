@@ -26,7 +26,7 @@
 *********************************/
 
 
-typedef enum {FOUND,NOT_FOUND,ILLEGAL_LABEL,ILLEGAL_OPERATION} symCode ;
+typedef enum {FOUND,NOT_FOUND,ILLEGAL_LABEL,ILLEGAL_OPERATION} errorCode ;
 
 
 /************************************************************
@@ -61,7 +61,7 @@ typedef struct strSymNode
 {
     char *label ;
     int address ;
-    symCode errorCode ; //<----change this to the error type
+    errorCode errCode ; //<----change this to the error type
     struct strSymNode* next ;
 
 } symNode ;

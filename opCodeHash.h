@@ -46,7 +46,7 @@ void printToFile();
 
 //searches through hash table for specific item
 //returns 1 if found, if not found returns 0
-symCode searchOp(const char* item);
+errorCode searchOp(const char* item);
 
 
 /*****************Generate Opcode Hash Table ***********/
@@ -187,7 +187,7 @@ void printToScreen()
 
 //searches through hash table for specific item
 //returns 1 if found, if not found returns 0
-symCode searchOp(const char* item)
+errorCode searchOp(const char* item)
 {
 
     int key = hashingFunc(item);

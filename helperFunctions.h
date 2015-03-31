@@ -41,7 +41,7 @@ void interFileHeader(FILE* fp,const char* name,const int start);
 int operandToBytes(const char* operand);
 
 //checks for errors in program line
-void checkErrors(const char* item,symCode errorCodes);
+void checkErrors(const char* item,errorCode errorCodes);
 
 //initialize files
 void initDataIo(char** filenames, FILE** files);

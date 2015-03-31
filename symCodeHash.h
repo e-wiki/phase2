@@ -42,7 +42,7 @@ int symHashingFunc(const char *key);
 void insertSymNode(const char* label, int addr);
 
 //checks to see if label is illegal
-symCode checkLabel(const char* label);
+errorCode checkLabel(const char* label);
 
 //prints hash table to screen
 void printTblToScreen();
@@ -52,7 +52,7 @@ void printTblToFile(FILE *fp);
 
 //searches through hash table for specific item
 //returns 1 if found, if not found returns 0
-symCode searchSym(const char* itemLbl);
+errorCode searchSym(const char* itemLbl);
 
 //modifies the error flag on label
 //void modifyErrorCode(const char* itemLbl);
@@ -101,11 +101,6 @@ void insertSymNode(const char* label, int addr)
 {
 
     int key = symHashingFunc(label);
-    //work on this, may be make errorCode an array
-    symCode errorCode = checkLabel(label);
-    //printf("%d\n",errorCode);
-    //if(errorCode != 2)
-    //    errorCode = searchSym(label);
 
     if(symHashTbl.size <= MAX_LABELS)
     {
@@ -157,7 +152,7 @@ void printTblToScreen()
         while(current != NULL)
         {
             printf("\t|%s , %x\n",current->label,current->address);
-            printf("\t|Error code: %d\n",current->errorCode);
+            printf("\t|Error code: %d\n",current->errCode);
             printf("\t|------------------\n");
             current = current->next ;
         }
@@ -180,7 +175,7 @@ void printTblToFile(FILE* fp)
         {
             fprintf(fp,"%d.\t************************\n",i);
             fprintf(fp,"\t|%s , %x\n",current->label,current->address);
-            fprintf(fp,"\t|Error code: %d\n",current->errorCode);
+            fprintf(fp,"\t|Error code: %d\n",current->errCode);
             current = current->next ;
         }
     }
@@ -191,7 +186,7 @@ void printTblToFile(FILE* fp)
 //searches through the hash table looking for a matching
 // label or a duplicate address. returns a variable of type
 //enum depending on error code
-symCode searchSym(const char* itemLbl)
+errorCode searchSym(const char* itemLbl)
 {
     int key = symHashingFunc(itemLbl);
 
@@ -213,7 +208,7 @@ symCode searchSym(const char* itemLbl)
 }
 
 
-//checks to see if label is illegal
+/*/checks to see if label is illegal
 symCode checkLabel(const char* label)
 {
     int k = 0 ;
@@ -227,6 +222,6 @@ symCode checkLabel(const char* label)
     }
     return 1 ;
 }
-
+*/
 
 #endif

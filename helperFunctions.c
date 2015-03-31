@@ -21,7 +21,7 @@ struct tLine parseLine(char *line)
         if(cnt < MAX_TOKENS)
         {
 
-            parsedLine.tokens[cnt] = (char*)malloc(sizeof(strLine));
+            parsedLine.tokens[cnt] = (char*)malloc(MAX_TOKEN_LEN);
             strcpy(parsedLine.tokens[cnt],strLine);
             cnt++ ;
 
@@ -173,8 +173,8 @@ int operandToBytes(const char* operand)
     {
     case 'x':
         size = strlen(operand)-3 ;
-        printf("%d\n",size);
-        if(size <= MAX_HEX_CHARS)
+
+        if(size <= MAX_HEX_CHARS && size % 2 == 0)
         {
             while(operand[i] != NULL)
             {
@@ -185,6 +185,11 @@ int operandToBytes(const char* operand)
                 i++ ;
             }
             return strToInt(newString,strlen(newString)-1);
+        }
+        else
+        {
+            //record error message
+            printf("Line is too long\n");
         }
         break;
 
@@ -206,7 +211,7 @@ int operandToBytes(const char* operand)
 }
 
 //checks for errors in program line
-void checkErrors(const char* item,symCode errorCodes)
+void checkErrors(const char* item,errorCode errCodes)
 {
 
 
