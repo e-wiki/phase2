@@ -26,7 +26,7 @@
 *********************************/
 
 
-typedef enum {FOUND,NOT_FOUND,ILLEGAL_LABEL,ILLEGAL_OPERATION} errorCode ;
+//typedef enum {FOUND,NOT_FOUND,ILLEGAL_LABEL,ILLEGAL_OPERATION} errorCode ;
 
 
 /************************************************************
@@ -52,7 +52,7 @@ typedef struct opContainer
     opNode* head ;
     opNode* last ;
 
-} opLinkedList;
+} opLinkedList ;
 
 /************** Symbol tabel structs ********************/
 
@@ -61,7 +61,6 @@ typedef struct strSymNode
 {
     char *label ;
     int address ;
-    errorCode errCode ; //<----change this to the error type
     struct strSymNode* next ;
 
 } symNode ;
@@ -82,6 +81,15 @@ typedef struct tLine
     int count ;
 
 } tokenLine ;
+
+/*********** Error code struct ***************************/
+typedef struct errC
+{
+
+    int errors[6] ;
+
+
+} errors ;
 
 
 #endif

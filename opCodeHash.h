@@ -46,7 +46,7 @@ void printToFile();
 
 //searches through hash table for specific item
 //returns 1 if found, if not found returns 0
-errorCode searchOp(const char* item);
+int searchOp(const char* item);
 
 
 /*****************Generate Opcode Hash Table ***********/
@@ -187,7 +187,7 @@ void printToScreen()
 
 //searches through hash table for specific item
 //returns 1 if found, if not found returns 0
-errorCode searchOp(const char* item)
+int searchOp(const char* item)
 {
 
     int key = hashingFunc(item);
@@ -200,7 +200,7 @@ errorCode searchOp(const char* item)
         if(strcmp(current->operatorCode,item) == 0 )
         {
 
-            return FOUND ; //returns zero
+            return 0 ; //returns zero
         }
 
         current = current->next ;
@@ -208,7 +208,7 @@ errorCode searchOp(const char* item)
     }
 
 
-    return NOT_FOUND ;//returns one
+    return 1 ;//returns one
 }
 
 //returns the mnemonic value of opcode

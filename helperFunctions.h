@@ -27,27 +27,14 @@ int strToInt(char *strValue , int pos);
 //converts a string to its decimal value
 int strToDec(char *strValue, int pos);
 
-//takes a string line of characters and tokenizes the line
-// returns a struct containing the tokenized line
-struct tLine parseLine(char *line);
-
-//converts a line form lower case to upper case ;
-void lineToUpper(char* line);
-
 //inserts a header on the intermediate file
 void interFileHeader(FILE* fp,const char* name,const int start);
 
 //translates operand into number of bytes required
 int operandToBytes(const char* operand);
 
-//checks for errors in program line
-void checkErrors(const char* item,errorCode errorCodes);
-
 //initialize files
 void initDataIo(char** filenames, FILE** files);
-
-//reads line from specified file
-void readLine(char* line , FILE* fp);
 
 
 

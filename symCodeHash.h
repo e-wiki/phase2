@@ -41,8 +41,6 @@ int symHashingFunc(const char *key);
 //takes a pointer to the hashTable
 void insertSymNode(const char* label, int addr);
 
-//checks to see if label is illegal
-errorCode checkLabel(const char* label);
 
 //prints hash table to screen
 void printTblToScreen();
@@ -52,10 +50,8 @@ void printTblToFile(FILE *fp);
 
 //searches through hash table for specific item
 //returns 1 if found, if not found returns 0
-errorCode searchSym(const char* itemLbl);
+int searchSym(const char* itemLbl);
 
-//modifies the error flag on label
-//void modifyErrorCode(const char* itemLbl);
 
 /*****************Generate symbol Hash Table ***********/
 
@@ -107,7 +103,7 @@ void insertSymNode(const char* label, int addr)
         symNode* newItem  = malloc(sizeof(symNode));
         newItem->label = label ;
         newItem->address = addr;
-        //newItem->errorCode = errorCode ;
+        //newItem->int = int ;
         newItem->next = NULL ;
 
 
@@ -152,7 +148,7 @@ void printTblToScreen()
         while(current != NULL)
         {
             printf("\t|%s , %x\n",current->label,current->address);
-            printf("\t|Error code: %d\n",current->errCode);
+           // printf("\t|Error code: %d\n",current->errCode);
             printf("\t|------------------\n");
             current = current->next ;
         }
@@ -175,7 +171,7 @@ void printTblToFile(FILE* fp)
         {
             fprintf(fp,"%d.\t************************\n",i);
             fprintf(fp,"\t|%s , %x\n",current->label,current->address);
-            fprintf(fp,"\t|Error code: %d\n",current->errCode);
+            //fprintf(fp,"\t|Error code: %d\n",current->errCode);
             current = current->next ;
         }
     }
@@ -186,7 +182,7 @@ void printTblToFile(FILE* fp)
 //searches through the hash table looking for a matching
 // label or a duplicate address. returns a variable of type
 //enum depending on error code
-errorCode searchSym(const char* itemLbl)
+int searchSym(const char* itemLbl)
 {
     int key = symHashingFunc(itemLbl);
 
@@ -197,31 +193,15 @@ errorCode searchSym(const char* itemLbl)
         if(strcmp(current->label,itemLbl) == 0)
         {
             //current->errorCode = FOUND ;
-            return FOUND ;//returns zero
+            return 0 ;//returns zero
         }
 
         current = current->next ;
     }
 
 
-    return NOT_FOUND ;//returns one
+    return 1 ;//returns one
 }
 
-
-/*/checks to see if label is illegal
-symCode checkLabel(const char* label)
-{
-    int k = 0 ;
-    while(label[k])
-    {
-        if(tolower(label[k]) < 'a' || tolower(label[k]) > 'z')
-        {
-            return ILLEGAL_LABEL ;
-        }
-        k++ ;
-    }
-    return 1 ;
-}
-*/
 
 #endif

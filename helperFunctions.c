@@ -1,41 +1,7 @@
 #include "helperFunctions.h"
 /*****************Function definitions ***********************/
 
-//takes a string line of characters and tokenizes the line
-//returns a struct cotntainig the tokenized line
-struct tLine parseLine(char *line)
-{
-    //tokenized line to be returned
-    tokenLine parsedLine ;
 
-    //keeps count of tokens in line
-    int cnt = 0 ;
-
-    char* strLine ;
-
-    strLine = strtok(line,WHITESPACE);
-
-    while(strLine != NULL)
-    {
-
-        if(cnt < MAX_TOKENS)
-        {
-
-            parsedLine.tokens[cnt] = (char*)malloc(MAX_TOKEN_LEN);
-            strcpy(parsedLine.tokens[cnt],strLine);
-            cnt++ ;
-
-        }
-
-        strLine = strtok(NULL,WHITESPACE);
-
-    }
-    parsedLine.count = cnt ;
-
-
-
-    return parsedLine ;
-};
 
 //translates a string of characters to its decimal value
 int strToInt(char *strValue , int pos)//<----- You gotta fix this!!!
@@ -133,23 +99,7 @@ int strToDec(char *strValue, int pos)
 
 }
 
-//converts a line form lower case to upper case ;
-void lineToUpper(char* line)
-{
-    char tmp ;
-    int i = 0 ;
 
-    while(line[i])
-    {
-        tmp = toupper(line[i]);
-        line[i] = tmp ;
-        i++ ;
-
-    }
-
-
-
-}
 
 void interFileHeader(FILE* fp,const char* name, const int start)
 {
@@ -203,19 +153,11 @@ int operandToBytes(const char* operand)
 
 
 
-    }
-
-
-
-
-}
-
-//checks for errors in program line
-void checkErrors(const char* item,errorCode errCodes)
-{
+    }//end switch
 
 
 }
+
 
 //initialize files
 void initDataIo(char** filenames, FILE** files)
@@ -238,13 +180,3 @@ void initDataIo(char** filenames, FILE** files)
 
 }
 
-//reads line from specified file
-void readLine(char* line , FILE* fp)
-{
-
-    size_t* len = MAX_LINE_LENGTH ;
-
-    getline(&line,&len,fp);
-
-
-}

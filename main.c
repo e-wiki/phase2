@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "helperFunctions.h"
+#include "lineHandling.h"
 #include "nodes.h"
 #include "opCodeHash.h"
 #include "symCodeHash.h"
@@ -31,9 +32,6 @@ int main(int argc, char* argv[])
     tokenLine theLine ; // holds tokens from a parsed line
 
 
-    //see if this can help for error codes ****************************8
-    errorCode errorCodes[4] ;
-
 
     //start loop that goes to every line of file ending at end of file
     while(!feof(inFile))
@@ -43,6 +41,24 @@ int main(int argc, char* argv[])
         //changes al characters in line to upper case
         lineToUpper(line);
 
+        //ommit line if it starts with a . or a new line character
+        if(line[0] != '\n' && line[0] != '.')
+        {
+            theLine = parseLine(line) ;
+            lineCount++ ;
+        }
+        else
+        {
+            fprintf(interFile,"%s",line);
+            fprintf(interFile,"if line is a comment then write this to file\n");
+            continue ;
+        }
+            //continue ;
+
+
+
+
+        /*
         //if line is not empyt and is not a comment then process line
         if(line[0] != '\n' && line[0] != '.')
         {
@@ -71,7 +87,6 @@ int main(int argc, char* argv[])
 
 
             }
-            //I AM WORKING ON THIS SECTION RIGHT HERE
             else
             {
 
@@ -79,15 +94,12 @@ int main(int argc, char* argv[])
                 {
                     insertSymNode(theLine.tokens[0],locctr);//insert symbol in table
 
-                    //errorCodes[0] = searchSym(theLine.tokens[0]);
 
-                    //printf("%d\n",errorCodes[0]);
-
-                    /**************Print line to file ******************************/
+                    //**************Print line to file ******************************
                     fprintf(interFile,"%x\t|",locctr);
                     for(counter = 0 ; counter < 3 ; counter++)
                         fprintf(interFile,"%s\t|",theLine.tokens[counter]);
-                    /***************************************************************/
+                    //***************************************************************
 
                     if(!searchOp(theLine.tokens[1]))//if next item in token list is an opcode
                     {
@@ -133,11 +145,11 @@ int main(int argc, char* argv[])
                 else if(!searchOp(theLine.tokens[0]))//if is opcode
                 {
 
-                    /***************print line to file ******************************/
+                    //***************print line to file ******************************
                     fprintf(interFile,"%x\t|\t|",locctr);
                     for(counter = 0 ; counter < 2 ; counter++)
                         fprintf(interFile,"%s\t|",theLine.tokens[counter]);
-                    /****************************************************************/
+                    //****************************************************************
 
                     if(strcmp(theLine.tokens[0],"WORD") == 0)
                     {
@@ -177,8 +189,8 @@ int main(int argc, char* argv[])
                 fprintf(interFile,"\n");
 
             }
-            /********************************************************/
-        }
+            //********************************************************
+        }*/
 
 
     }
