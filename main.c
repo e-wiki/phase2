@@ -49,15 +49,22 @@ int main(int argc, char* argv[])
         }
         else
         {
-            fprintf(interFile,"%s",line);
-            fprintf(interFile,"if line is a comment then write this to file\n");
             continue ;
         }
-            //continue ;
 
 
+        if(lineCount == 1)
+        {
+            for(counter = 0 ; counter < theLine.count; counter++)
+            {
+                if(strcmp(theLine.tokens[counter],"START") == 0)
+                {
+                    break ;
+                }
+            }
 
-
+            startAddrs = strToInt(theLine.tokens[counter + 1],strlen(theLine.tokens[counter+1]-1));
+        }
         /*
         //if line is not empyt and is not a comment then process line
         if(line[0] != '\n' && line[0] != '.')
@@ -190,7 +197,7 @@ int main(int argc, char* argv[])
 
             }
             //********************************************************
-        }*/
+        */
 
 
     }
