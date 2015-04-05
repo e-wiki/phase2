@@ -53,18 +53,37 @@ int main(int argc, char* argv[])
         }
 
 
-        if(lineCount == 1)
+        if(lineCount == 2)
         {
             for(counter = 0 ; counter < theLine.count; counter++)
             {
                 if(strcmp(theLine.tokens[counter],"START") == 0)
                 {
+                    startAddrs = strToInt(theLine.tokens[counter + 1],strlen(theLine.tokens[counter+1]-1));
+                    locctr = startAddrs ;
+                    interFileHeader(interFile,theLine.tokens[0],startAddrs);
                     break ;
+                }
+                else if( counter == theLine.count)
+                {
+                    printf("no start directive\n");
                 }
             }
 
-            startAddrs = strToInt(theLine.tokens[counter + 1],strlen(theLine.tokens[counter+1]-1));
+            //add line to intermediate file
+            fprintf(interFile,"\t|");//,locctr);
+            for(counter = 0 ; counter < 3 ; counter++)
+                fprintf(interFile,"%s\t|",theLine.tokens[counter]);
+
+            fprintf(interFile,"\n");
+
         }
+
+         if(searchOp(theLine.tokens[0]))
+         {
+            //printf("symbol\n");
+         }
+
         /*
         //if line is not empyt and is not a comment then process line
         if(line[0] != '\n' && line[0] != '.')
