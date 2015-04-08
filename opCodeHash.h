@@ -200,7 +200,7 @@ int searchOp(const char* item)
         if(strcmp(current->operatorCode,item) == 0 )
         {
 
-            return 0 ; //returns zero
+            return 0 ; //if exists returns zero
         }
 
         current = current->next ;
@@ -208,7 +208,7 @@ int searchOp(const char* item)
     }
 
 
-    return 1 ;//returns one
+    return 1 ;//if it does not exists returns one
 }
 
 //returns the mnemonic value of opcode

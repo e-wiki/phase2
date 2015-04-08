@@ -26,7 +26,7 @@
 *********************************/
 
 
-//typedef enum {FOUND,NOT_FOUND,ILLEGAL_LABEL,ILLEGAL_OPERATION} errorCode ;
+typedef enum {FOUND,NOT_FOUND,ILLEGAL_LABEL,ILLEGAL_OPERATION} errCodes ;
 
 
 /************************************************************
@@ -82,14 +82,6 @@ typedef struct tLine
 
 } tokenLine ;
 
-/*********** Error code struct ***************************/
-typedef struct errC
-{
-
-    int errors[6] ;
-
-
-} errors ;
 
 
 #endif

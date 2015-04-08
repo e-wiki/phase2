@@ -3,8 +3,9 @@
 #include "helperFunctions.h"
 #include "lineHandling.h"
 #include "nodes.h"
-#include "opCodeHash.h"
 #include "symCodeHash.h"
+#include "opCodeHash.h"
+
 
 int main(int argc, char* argv[])
 {
@@ -31,6 +32,8 @@ int main(int argc, char* argv[])
 
     tokenLine theLine ; // holds tokens from a parsed line
 
+    errCodes** errors  ;//(int) malloc(sizeof(int)) ;
+
 
 
     //start loop that goes to every line of file ending at end of file
@@ -53,7 +56,7 @@ int main(int argc, char* argv[])
         }
 
 
-        if(lineCount == 2)
+        if(lineCount == 1)
         {
             for(counter = 0 ; counter < theLine.count; counter++)
             {
@@ -61,12 +64,14 @@ int main(int argc, char* argv[])
                 {
                     startAddrs = strToInt(theLine.tokens[counter + 1],strlen(theLine.tokens[counter+1]-1));
                     locctr = startAddrs ;
-                    interFileHeader(interFile,theLine.tokens[0],startAddrs);
+                    interFileHeader(interFile,theLine.tokens[counter -1],startAddrs);
                     break ;
                 }
-                else if( counter == theLine.count)
+                else
                 {
-                    printf("no start directive\n");
+                    printf("no Start directive\n");
+
+
                 }
             }
 
@@ -79,9 +84,10 @@ int main(int argc, char* argv[])
 
         }
 
-         if(searchOp(theLine.tokens[0]))
+         if(isSymbol(theLine.tokens[0]))
          {
-            //printf("symbol\n");
+            fprintf(interFile,"symbol\t");
+            fprintf(interFile,"%s\n",theLine.tokens[0]);
          }
 
         /*

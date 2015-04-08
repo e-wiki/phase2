@@ -19,6 +19,7 @@
 #include <ctype.h>
 #include "nodes.h"
 
+
 /************ Function Declarations ****************/
 
 //translates a string of characters to its decimal value
@@ -35,6 +36,9 @@ int operandToBytes(const char* operand);
 
 //initialize files
 void initDataIo(char** filenames, FILE** files);
+
+//checks to see if tokens is symbol
+int isSymbol(char* token);
 
 
 

@@ -180,3 +180,16 @@ void initDataIo(char** filenames, FILE** files)
 
 }
 
+
+//returns true if token is not opcode
+int isSymbol(char* token)
+{
+    return (searchOp(token));
+
+}
+
+
+
+
+
+
