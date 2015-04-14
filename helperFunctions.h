@@ -49,6 +49,9 @@ int incrementLC(char** cols,int column);
 //Prints line to file
 void printLineToFile(FILE* inF,int loc,char** token,int col);
 
+//print error codes to file
+void printErrorCodes(FILE* fp,int** codes);
+
 
 
 #endif

@@ -13,29 +13,29 @@ int main(int argc, char* argv[])
 
     initDataIo(argv,ioData);//initialize files
 
-    FILE* inFile = ioData[0] ;//assembly source file
-    FILE* labels  = ioData[1] ;//stores the labels and addresses
+    FILE* inFile    = ioData[0] ;//assembly source file
+    FILE* labels    = ioData[1] ;//stores the labels and addresses
     FILE* interFile = ioData[2]; //stores the intermediate data from source file
 
     //initializers
     initSymHashTbl();//initializes symbols table
     initOpHashTbl();//initializes opcode table
 
-    int startAddrs = 0 ;//starting address of program
-    int locctr = 0 ;//address of current instruction
+    int startAddrs  = 0 ;//starting address of program
+    int locctr  = 0 ;//address of current instruction
 
-    char* line = (char*)malloc(MAX_LINE_LENGTH);// stores the line obtained from file
+    char* line  = (char*)malloc(MAX_LINE_LENGTH);// stores the line obtained from file
 
     //counters
     int counter = 0 ; //counts the num of tokens in tokenized line
-    int lineCount = 0 ;
+    int lineCount   = 0 ;
 
     tokenLine theLine ; // holds tokens from a parsed line
 
     //error codes for line
-    errCodes errors[7] ;
+    errCodes errors[7] = {0} ;
     //keeps count of error codes
-    int err = {0} ;
+    int err = 0 ;
 
 
 
@@ -61,15 +61,14 @@ int main(int argc, char* argv[])
             continue ;
         }
 
-        //check line one for directive
+        //check line one for START directive
         if(lineCount == 1)
         {
             for(counter = 0 ; counter < theLine.count; counter++)
             {
                 if(strcmp(theLine.tokens[counter],"START") == 0)
                 {
-                    startAddrs = strToInt(theLine.tokens[counter + 1],strlen(theLine.tokens[counter+1]-1));
-                    locctr = startAddrs ;
+                    locctr = startAddrs = strToInt(theLine.tokens[counter + 1],strlen(theLine.tokens[counter+1]-1));
                     interFileHeader(interFile,theLine.tokens[counter -1],startAddrs);
                     break ;
                 }
@@ -78,9 +77,9 @@ int main(int argc, char* argv[])
             }
             if(counter == theLine.count)
             {
-                //errors[++err] = NO_START_DIR ;
+                errors[err++] = NO_START_DIR ;
                 interFileHeader(interFile,"Default",startAddrs);
-                continue ;
+                //continue ;
             }
 
             //add line to intermediate file
@@ -89,35 +88,48 @@ int main(int argc, char* argv[])
             {
                 fprintf(interFile,"%s\t|",theLine.tokens[counter]);
             }
-            fprintf(interFile,"\t\t|\t%d\n",errors[0]);
+            fprintf(interFile,"\t\t|");
+
+            printErrorCodes(interFile,errors);
+
         }
+        //***************************************************************************************
 
         if(isSymbol(theLine.tokens[COL1]) && strcmp(theLine.tokens[COL2],"START") != 0 )
         {
-            //errors[++err] = isSymbolDuplicate(theLine.tokens[COL1]);
+            //check for duplicate label
+            errors[err++] = isSymbolDuplicate(theLine.tokens[COL1]);
+
+            //insert label to table
             insertSymNode(theLine.tokens[COL1],locctr);
 
-            //fprintf(labels,"%s\t%d\n",theLine.tokens[COL1],errors[err]);
-
+            //print line to file
             printLineToFile(interFile,locctr,theLine.tokens,COL2);
-            fprintf(interFile,"\n");
 
 
+            //increment locctr
             if(!searchOp(theLine.tokens[COL2]))
             {
                 locctr += incrementLC(theLine.tokens,COL2) ;
 
             }
+            else
+            {
+                errors[err++] = MISSING_OPCODE ;
+            }
+
+            printErrorCodes(interFile,errors);
 
         }
         else if(!searchOp(theLine.tokens[COL1]))
         {
 
             printLineToFile(interFile,locctr,theLine.tokens,COL1);
-            fprintf(interFile,"\n");
+
 
             locctr += incrementLC(theLine.tokens,COL1) ;
 
+            printErrorCodes(interFile,errors);
 
             if(strcmp(theLine.tokens[COL1],"END") == 0)
             {

@@ -225,6 +225,7 @@ int incrementLC(char** cols,int column)
 
 }
 
+//prints line to intermediate file
 void printLineToFile(FILE* inF,int loc,char** token,int col)
 {
     int counter = 0 ;
@@ -242,6 +243,26 @@ void printLineToFile(FILE* inF,int loc,char** token,int col)
     fprintf(inF,"%x\t\t|",mnValue(token[col]));
 
 
+}
+
+//print error codes to file
+void printErrorCodes(FILE* fp, int** codes)
+{
+    int i = 0 ;
+
+    fprintf(fp,"\t");
+    for(i = 0 ; i < 7 ; i++)
+    {
+        fprintf(fp,"%d",codes[i]);
+
+    }
+    fprintf(fp,"\n");
+
+    //reset array
+    for(i = 0 ; i < 7 ; i++)
+    {
+        codes[i] = 0 ;
+    }
 }
 
 
