@@ -78,14 +78,14 @@ int hashingFunc(const char *key)
 //initialize opcode hashing table
 void initOpHashTbl()
 {
-    int i = 0 ;
+   // int i = 0 ;
 
-    for(i ; i < MAX_HASHTBL_LENGTH ; i++)
+/*    for(i ; i < MAX_HASHTBL_LENGTH ; i++)
     {
         opHashTbl.opCode[i].head = NULL ;
 
     }
-
+*/
     opHashTbl.size = 0 ;
 
 
@@ -196,7 +196,6 @@ int searchOp(const char* item)
 
     while(current != NULL)
     {
-
         if(strcmp(current->operatorCode,item) == 0 )
         {
 

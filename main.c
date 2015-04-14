@@ -32,13 +32,19 @@ int main(int argc, char* argv[])
 
     tokenLine theLine ; // holds tokens from a parsed line
 
-    errCodes** errors  ;//(int) malloc(sizeof(int)) ;
+    //error codes for line
+    errCodes errors[7] ;
+    //keeps count of error codes
+    int err = {0} ;
 
 
 
     //start loop that goes to every line of file ending at end of file
     while(!feof(inFile))
     {
+        //reset error counter
+        err = 0 ;
+
         //read line form file
         readLine(line, inFile);
         //changes al characters in line to upper case
@@ -55,7 +61,7 @@ int main(int argc, char* argv[])
             continue ;
         }
 
-
+        //check line one for directive
         if(lineCount == 1)
         {
             for(counter = 0 ; counter < theLine.count; counter++)
@@ -67,28 +73,58 @@ int main(int argc, char* argv[])
                     interFileHeader(interFile,theLine.tokens[counter -1],startAddrs);
                     break ;
                 }
-                else
-                {
-                    printf("no Start directive\n");
 
 
-                }
+            }
+            if(counter == theLine.count)
+            {
+                //errors[++err] = NO_START_DIR ;
+                interFileHeader(interFile,"Default",startAddrs);
+                continue ;
             }
 
             //add line to intermediate file
             fprintf(interFile,"\t|");//,locctr);
             for(counter = 0 ; counter < 3 ; counter++)
+            {
                 fprintf(interFile,"%s\t|",theLine.tokens[counter]);
-
-            fprintf(interFile,"\n");
-
+            }
+            fprintf(interFile,"\t\t|\t%d\n",errors[0]);
         }
 
-         if(isSymbol(theLine.tokens[0]))
-         {
-            fprintf(interFile,"symbol\t");
-            fprintf(interFile,"%s\n",theLine.tokens[0]);
-         }
+        if(isSymbol(theLine.tokens[COL1]) && strcmp(theLine.tokens[COL2],"START") != 0 )
+        {
+            //errors[++err] = isSymbolDuplicate(theLine.tokens[COL1]);
+            insertSymNode(theLine.tokens[COL1],locctr);
+
+            //fprintf(labels,"%s\t%d\n",theLine.tokens[COL1],errors[err]);
+
+            printLineToFile(interFile,locctr,theLine.tokens,COL2);
+            fprintf(interFile,"\n");
+
+
+            if(!searchOp(theLine.tokens[COL2]))
+            {
+                locctr += incrementLC(theLine.tokens,COL2) ;
+
+            }
+
+        }
+        else if(!searchOp(theLine.tokens[COL1]))
+        {
+
+            printLineToFile(interFile,locctr,theLine.tokens,COL1);
+            fprintf(interFile,"\n");
+
+            locctr += incrementLC(theLine.tokens,COL1) ;
+
+
+            if(strcmp(theLine.tokens[COL1],"END") == 0)
+            {
+                break ;
+            }
+
+        }
 
         /*
         //if line is not empyt and is not a comment then process line
@@ -232,6 +268,7 @@ int main(int argc, char* argv[])
 
     fclose(inFile);
     fclose(labels);
+    fclose(interFile);
 
     exit(EXIT_SUCCESS);
 

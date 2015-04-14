@@ -188,6 +188,61 @@ int isSymbol(char* token)
 
 }
 
+//returns true if symbol is a duplicate
+int isSymbolDuplicate(char* token)
+{
+    return (searchSym(token));
+}
+
+//increments location counter
+int incrementLC(char** cols,int column)
+{
+
+    if(strcmp(cols[column],"WORD") == 0) //if it equals word
+    {
+        return 3 ; //increment counter by 3
+
+    }
+    else if(strcmp(cols[column],"RESW") ==0)//if equals resw
+    {
+        //increment counter by 3 times the number of the operand
+        return 3 * strToDec(cols[column+1],strlen(cols[column+1]-1)) ;
+
+    }
+    else if(strcmp(cols[column],"RESB")==0)//if equals resb
+    {
+        //increment counter by adding the operand
+        return strToDec(cols[column+1],strlen(cols[column+1]-1)) ;
+    }
+    else if(strcmp(cols[column],"BYTE")==0)//if equals byte
+    {
+        return  operandToBytes(cols[column+1]);
+    }
+    else //if just regular operator
+    {
+        return 3 ;
+    }
+
+}
+
+void printLineToFile(FILE* inF,int loc,char** token,int col)
+{
+    int counter = 0 ;
+    if(col == 0 )
+    {
+        fprintf(inF,"%x\t|\t|",loc);
+    }
+    else
+    {
+        fprintf(inF,"%x\t|",loc);
+    }
+
+    for(counter = 0 ; counter < (col+2) ; counter++)
+        fprintf(inF,"%s\t|",token[counter]);
+    fprintf(inF,"%x\t\t|",mnValue(token[col]));
+
+
+}
 
 
 

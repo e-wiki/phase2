@@ -48,4 +48,14 @@
 //gives you the size of an array
 #define ARRSIZE(x) (sizeof(x)/sizeof(x[0]))-1
 
+//DEFINES COLUMN ONE
+#define COL1 0
+
+//DEFINES COLUMN TWO
+#define COL2 1
+
+//DEFINES COLUMN THREE
+#define COL3 2
+
+
 #endif

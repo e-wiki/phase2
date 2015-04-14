@@ -26,7 +26,8 @@
 *********************************/
 
 
-typedef enum {FOUND,NOT_FOUND,ILLEGAL_LABEL,ILLEGAL_OPERATION} errCodes ;
+typedef enum {FOUND,NOT_FOUND,ILLEGAL_LABEL,ILLEGAL_OPERATION,NO_START_DIR} errCodes ;
+            //0     1           2           3                   4
 
 
 /************************************************************

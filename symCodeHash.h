@@ -190,17 +190,18 @@ int searchSym(const char* itemLbl)
 
     while(current != NULL)
     {
+
         if(strcmp(current->label,itemLbl) == 0)
         {
             //current->errorCode = FOUND ;
-            return 0 ;//returns zero
+            return 0 ;//if found returns zero
         }
 
         current = current->next ;
     }
 
 
-    return 1 ;//returns one
+    return 1 ;//if not found returns one
 }
 
 

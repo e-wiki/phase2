@@ -40,6 +40,15 @@ void initDataIo(char** filenames, FILE** files);
 //checks to see if tokens is symbol
 int isSymbol(char* token);
 
+//checks if symbol is duplicate
+int isSymbolDuplicate(char* token);
+
+//increments the location counter
+int incrementLC(char** cols,int column);
+
+//Prints line to file
+void printLineToFile(FILE* inF,int loc,char** token,int col);
+
 
 
 #endif
