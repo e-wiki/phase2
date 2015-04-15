@@ -194,6 +194,18 @@ int isSymbolDuplicate(char* token)
     return (searchSym(token));
 }
 
+//checks if lable is illegal
+int isSymbolIllegal(char* token)
+{
+    int i = 0 ;
+    if(token[i] < 'A')
+    {
+        return ILLEGAL_LABEL ;
+    }
+
+
+}
+
 //increments location counter
 int incrementLC(char** cols,int column)
 {
@@ -237,11 +249,11 @@ void printLineToFile(FILE* inF,int loc,char** token,int col)
     {
         fprintf(inF,"%x\t|",loc);
     }
-
     for(counter = 0 ; counter < (col+2) ; counter++)
         fprintf(inF,"%s\t|",token[counter]);
-    fprintf(inF,"%x\t\t|",mnValue(token[col]));
 
+    if(col != -1)
+    fprintf(inF,"%x\t\t|",mnValue(token[col]));
 
 }
 

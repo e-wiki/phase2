@@ -77,7 +77,9 @@ int main(int argc, char* argv[])
             }
             if(counter == theLine.count)
             {
+
                 errors[err++] = NO_START_DIR ;
+
                 interFileHeader(interFile,"Default",startAddrs);
                 //continue ;
             }
@@ -103,22 +105,30 @@ int main(int argc, char* argv[])
             //insert label to table
             insertSymNode(theLine.tokens[COL1],locctr);
 
-            //print line to file
-            printLineToFile(interFile,locctr,theLine.tokens,COL2);
-
-
-            //increment locctr
-            if(!searchOp(theLine.tokens[COL2]))
+            //print line for label only
+            if(theLine.count == 1)
             {
-                locctr += incrementLC(theLine.tokens,COL2) ;
+                printLineToFile(interFile,locctr,theLine.tokens,-1);
+                fprintf(interFile,"\t|\t|\t\t|");
+                printErrorCodes(interFile,errors);
+                continue ;
 
             }
             else
             {
-                errors[err++] = MISSING_OPCODE ;
-            }
+                printLineToFile(interFile,locctr,theLine.tokens,COL2);
 
-            printErrorCodes(interFile,errors);
+            }
+                //increment locctr
+                if(!searchOp(theLine.tokens[COL2]))
+                {
+                    locctr += incrementLC(theLine.tokens,COL2) ;
+
+                }
+
+
+                printErrorCodes(interFile,errors);
+
 
         }
         else if(!searchOp(theLine.tokens[COL1]))

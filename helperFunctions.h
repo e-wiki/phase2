@@ -43,6 +43,9 @@ int isSymbol(char* token);
 //checks if symbol is duplicate
 int isSymbolDuplicate(char* token);
 
+//checks if lable is illegal
+int isSymbolIllegal(char* token);
+
 //increments the location counter
 int incrementLC(char** cols,int column);
 
