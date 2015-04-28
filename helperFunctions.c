@@ -198,11 +198,26 @@ int isSymbolDuplicate(char* token)
 int isSymbolIllegal(char* token)
 {
     int i = 0 ;
-    if(token[i] < 'A')
+    if(strlen(token) > 6 )
     {
         return ILLEGAL_LABEL ;
     }
-
+    if(token[i] < '0')
+    {
+        return ILLEGAL_LABEL ;
+    }
+    else if(token[i] > '9' && token[i] < 'A')
+    {
+        return ILLEGAL_LABEL ;
+    }
+    else if(token[i] > 'Z')
+    {
+        return ILLEGAL_LABEL ;
+    }
+    else
+    {
+        return 0 ;
+    }
 
 }
 

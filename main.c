@@ -100,7 +100,8 @@ int main(int argc, char* argv[])
         if(isSymbol(theLine.tokens[COL1]) && strcmp(theLine.tokens[COL2],"START") != 0 )
         {
             //check for duplicate label
-            errors[err++] = isSymbolDuplicate(theLine.tokens[COL1]);
+            errors[err++] = isSymbolDuplicate(theLine.tokens[COL1]); //returns one if lable is not duplicate
+            errors[err++] = isSymbolIllegal(theLine.tokens[COL1]); // returns 2 if label is illegal
 
             //insert label to table
             insertSymNode(theLine.tokens[COL1],locctr);
