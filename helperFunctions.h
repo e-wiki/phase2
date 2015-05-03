@@ -47,13 +47,13 @@ int isSymbolDuplicate(char* token);
 int isSymbolIllegal(char* token);
 
 //increments the location counter
-int incrementLC(char** cols,int column);
+int incrementLC(char** cols,int column,errCodes* codes);
 
 //Prints line to file
 void printLineToFile(FILE* inF,int loc,char** token,int col);
 
 //print error codes to file
-void printErrorCodes(FILE* fp,int** codes);
+void printErrorCodes(FILE* fp,errCodes* codes);
 
 
 

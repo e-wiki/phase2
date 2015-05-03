@@ -222,11 +222,12 @@ int isSymbolIllegal(char* token)
 }
 
 //increments location counter
-int incrementLC(char** cols,int column)
+int incrementLC(char** cols,int column,errCodes* codes)
 {
 
     if(strcmp(cols[column],"WORD") == 0) //if it equals word
     {
+        codes = ILLEGAL_OPERATION ;
         return 3 ; //increment counter by 3
 
     }
@@ -273,7 +274,7 @@ void printLineToFile(FILE* inF,int loc,char** token,int col)
 }
 
 //print error codes to file
-void printErrorCodes(FILE* fp, int** codes)
+void printErrorCodes(FILE* fp, errCodes* codes)
 {
     int i = 0 ;
 

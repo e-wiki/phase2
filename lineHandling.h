@@ -93,7 +93,7 @@ void lineToUpper(char* line)
 void readLine(char* line , FILE* fp)
 {
 
-    size_t* len = MAX_LINE_LENGTH ;
+    size_t len = MAX_LINE_LENGTH ;
 
     getline(&line,&len,fp);
 

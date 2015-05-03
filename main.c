@@ -80,6 +80,7 @@ int main(int argc, char* argv[])
 
                 errors[err++] = NO_START_DIR ;
 
+
                 interFileHeader(interFile,"Default",startAddrs);
                 //continue ;
             }
@@ -123,7 +124,9 @@ int main(int argc, char* argv[])
                 //increment locctr
                 if(!searchOp(theLine.tokens[COL2]))
                 {
-                    locctr += incrementLC(theLine.tokens,COL2) ;
+                    printf("%d\n",errors[err]);
+                    locctr += incrementLC(theLine.tokens,COL2,&errors[err++]) ;
+                    printf("%d\n",errors[err-1]);
 
                 }
 
@@ -138,7 +141,7 @@ int main(int argc, char* argv[])
             printLineToFile(interFile,locctr,theLine.tokens,COL1);
 
 
-            locctr += incrementLC(theLine.tokens,COL1) ;
+            locctr += incrementLC(theLine.tokens,COL1,&errors[err++]) ;
 
             printErrorCodes(interFile,errors);
 
