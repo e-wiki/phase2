@@ -162,8 +162,11 @@ int operandToBytes(const char* operand)
 //initialize files
 void initDataIo(char** filenames, FILE** files)
 {
+
+    char* asmFile = malloc(sizeof(filenames[1])) ;
+    strcpy(asmFile,filenames[1]);
     //open assembly source file, exit if not able to open
-    files[0] = fopen("source.asm", "r");
+    files[0] = fopen(asmFile, "r");
     if (files[0] == NULL)
         exit(EXIT_FAILURE);
 
