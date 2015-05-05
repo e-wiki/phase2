@@ -100,9 +100,9 @@ void insertSymNode(const char* label, int addr)
 
     if(symHashTbl.size <= MAX_LABELS)
     {
-        symNode* newItem  = malloc(sizeof(symNode));
-        newItem->label = label ;
-        newItem->address = addr;
+        symNode* newItem  = (symNode*)malloc(sizeof(symNode));
+        //newItem->label = label ;
+        //newItem->address = addr;
         //newItem->int = int ;
         newItem->next = NULL ;
 

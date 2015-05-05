@@ -35,7 +35,7 @@ void interFileHeader(FILE* fp,const char* name,const int start);
 int operandToBytes(const char* operand);
 
 //initialize files
-void initDataIo(char** filenames, FILE** files);
+void initDataIo(char* filename, FILE** files);
 
 //checks to see if tokens is symbol
 int isSymbol(char* token);

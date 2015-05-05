@@ -160,11 +160,11 @@ int operandToBytes(const char* operand)
 
 
 //initialize files
-void initDataIo(char** filenames, FILE** files)
+void initDataIo(char* filename, FILE** files)
 {
 
-    char* asmFile = malloc(sizeof(filenames[1])) ;
-    strcpy(asmFile,filenames[1]);
+    char* asmFile = malloc(sizeof(filename)) ;
+    strcpy(asmFile,filename);
     //open assembly source file, exit if not able to open
     files[0] = fopen(asmFile, "r");
     if (files[0] == NULL)
